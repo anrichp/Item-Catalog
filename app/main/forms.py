@@ -12,8 +12,8 @@ def categoryQuery():
 
 
 class NewItem(FlaskForm):
-    name = StringField('Name', validators=[Length(0, 64)])
-    description = StringField('Description', validators=[Length(0, 64)])
+    name = StringField('Name', validators=[Length(0, 80)])
+    description = StringField('Description', validators=[Length(0, 250)])
     category = QuerySelectField(get_label='name', query_factory=categoryQuery)
     submit = SubmitField('Submit')
 
