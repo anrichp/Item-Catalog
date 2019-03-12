@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Item</title>
+</head>
+<body>
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Item Catalog - Edit Item{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg">
+	  <a class="navbar-brand" href="#">Item Catalog</a>
+	</nav>
+	{% if not session.profile %}
+	<a href="{{ url_for('.login') }}" class="btn btn-primary active" role="button" aria-pressed="true">Login</a>
+	{% else %}
+	<a href="{{ url_for('logout') }}" class="btn btn-primary active" role="button" aria-pressed="true">Logout</a>
+	{% endif %}	
+</nav>
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('.index') }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit: {{ item }} </li>
+  </ol>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="card text-center text-white bg-dark mb-3">
+		<div class="card-body">
+			<div class="page-header">
+	    	<h1>Edit Item</h1>
+		</div>
+		<form action="{{ url_for('.edit', category=category, item=item) }}" method="POST">
+			<div class="form-group">
+				<label for="itemTitle">Item Name</label>
+				<input type="text" class="form-control" id="itemTitle" name="title" aria-describedby="itemTitle" placeholder="{{ item }}">
+			</div>
+			<div class="form-group">
+				<label for="itemDescription">Item Description</label>
+				<input type="text" class="form-control" id="itemDescription" name="description" aria-describedby="itemDescription" placeholder="{{ description }}">
+			</div>
+			<div class="form-group">
+    			<label for="itemCategory">Item Category</label>
+    			<select class="form-control" id="itemCategory" name="category" type="text">
+    				{% for category in categories %}
+			      		<option>{{ category.name }}</option>
+			      	{% endfor %}
+    			</select>
+  			</div>
+			<button type="submit" class="btn btn-primary" name="Edit">Submit</button>
+		</form> 
+	</div>
+</div>
+{% endblock %}
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delete Item</title>
+</head>
+<body>
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Item Catalog - Edit Item{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg">
+	  <a class="navbar-brand" href="#">Item Catalog</a>
+	</nav>
+	{% if not session.profile %}
+	<a href="{{ url_for('.login') }}" class="btn btn-primary active" role="button" aria-pressed="true">Login</a>
+	{% else %}
+	<a href="{{ url_for('logout') }}" class="btn btn-primary active" role="button" aria-pressed="true">Logout</a>
+	{% endif %}	
+</nav>
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('.index') }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit: {{ item }} </li>
+  </ol>
+</nav>
+{% endblock %}
+{% block content %}
+	<div class="page-header">
+	    <p>Are you sure you want to delete {{ item }}?</p>
+	</div>
+	<div class="col-md-4">
+	<form method = 'POST'>
+	    <button type="submit" class="btn btn-primary">Delete</button>
+	</form>
+	</div>
+{% endblock %}
+
+
+</body>
+</html>

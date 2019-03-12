@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Category Items</title>
+</head>
+<body>
+
+{% extends "bootstrap/base.html" %}
+{% block title %}Item{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg">
+	  <a class="navbar-brand" href="#">Item Catalog</a>
+	  <a class="nav-link" href="{{ url_for('.index') }}">Home</a>
+	</nav>
+{% if not session.profile %}
+	<a href="{{ url_for('.login') }}" class="btn btn-primary active" role="button" aria-pressed="true">Login</a>
+{% else %}
+	<a href="{{ url_for('logout') }}" class="btn btn-primary active" role="button" aria-pressed="true">Logout</a>
+{% endif %}	
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('.index') }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
+  </ol>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<h1>Categories</h1>
+				{% for category in categories %}
+					<p><a href="{{ url_for('.category', category=category.name) }}">{{ category.name }}</a></p>
+				{% endfor %}
+				</div>
+				<div class="col">
+					<h1>{{ category }} Items</h1>
+					{% for item in items %}
+						<p><a href="{{ url_for('.item', category=category, item=item.name) }}">{{ item.name }}</a></p>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+{% endblock %}
+
+</body>
+</html>
