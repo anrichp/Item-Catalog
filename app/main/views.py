@@ -24,7 +24,7 @@ def login():
 @main.route('/catalog/<category>/items')
 def category(category):
     items = db.session.query(Item.name, Category.id).join(
-        Item).filter(Category.name == category)
+        Category).filter(Category.name == category)
     categories = db.session.query(Category).all()
     return render_template('categoryItems.html', items=items,
                            categories=categories, category=category)
