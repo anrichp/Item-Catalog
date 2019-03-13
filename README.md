@@ -26,6 +26,10 @@ pip install -r requirements.txt
 ## Create & Populate Database
 
 ```
+export FLASK_APP=itemCatalog.py
+```
+
+```
 flask shell
 ```
 
