@@ -25,6 +25,9 @@ pip install -r requirements.txt
 
 ## Create & Populate Database
 
+- This project already includes a database with pre-populated data
+- Please delete the data-dev.sqlite file before running **db.create_all()** & **populateDB**
+
 ```
 export FLASK_APP=itemCatalog.py
 ```
