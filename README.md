@@ -44,9 +44,5 @@ import populateDB
 ## Run the Application
 
 ```
-export FLASK_APP=itemCatalog.py
-```
-
-```
-flask run
+python itemCatalog.py
 ```
