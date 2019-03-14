@@ -22,6 +22,8 @@ class Item(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(250))
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    createdBy = db.Column(db.String(255))
+    createdById = db.Column(db.String(255))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship(Category)
 
