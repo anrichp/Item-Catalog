@@ -78,9 +78,13 @@ def edit(category, item):
 
     # convert query result to a string and remove unwanted characters
     description = str(description).replace("('", "").replace("',)", "")
-    """receive form results and populate the Item object
-    with updated information"""
-    if request.method == 'POST':
+    """
+    receive form results and populate the Item object
+    with updated information
+    """
+    if session['profile']['email'] != editedItem.createdById:
+        render_template('editError.html')
+    elif request.method == 'POST':
         editedItem.name = request.form['title']
         editedItem.description = request.form['description']
         editedItem.price = request.form['category']
