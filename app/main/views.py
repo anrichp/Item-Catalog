@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, jsonify
+from flask import render_template, redirect, url_for, jsonify, session
 from flask import request
 from app import oauth2
 from . import main
@@ -43,9 +43,12 @@ def item(category, item):
 def newItem():
     form = NewItem()
     if request.method == 'POST' and form.validate_on_submit():
-        item = Item(name=form.name.data,
-                    description=form.description.data,
-                    category=form.category.data)
+        if 'profile' in session:
+            item = Item(name=form.name.data,
+                        description=form.description.data,
+                        category=form.category.data,
+                        createdById=session['profile']['email'],
+                        createdBy=session['profile']['name'])
         db.session.add(item)
         db.session.commit()
         return redirect(url_for('.index'))
