@@ -49,6 +49,8 @@ def newItem():
                         category=form.category.data,
                         createdById=session['profile']['email'],
                         createdBy=session['profile']['name'])
+        else:
+            return redirect(url_for('login'))
         db.session.add(item)
         db.session.commit()
         return redirect(url_for('.index'))
