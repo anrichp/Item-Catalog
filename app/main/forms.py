@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import Length
+from wtforms.validators import Length, InputRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from .. import db
 from .. models import Category
@@ -12,14 +12,15 @@ def categoryQuery():
 
 
 class NewItem(FlaskForm):
-    name = StringField('Name', validators=[Length(0, 80)])
-    description = StringField('Description', validators=[Length(0, 250)])
+    name = StringField('Name', validators=[Length(0, 80), InputRequired()])
+    description = StringField('Description', validators=[Length(0, 250),
+                                                         InputRequired()])
     category = QuerySelectField(get_label='name', query_factory=categoryQuery)
     submit = SubmitField('Submit')
 
 
 class NewCategory(FlaskForm):
-    name = StringField('Name', validators=[Length(0, 64)])
+    name = StringField('Name', validators=[Length(0, 64), InputRequired()])
     submit = SubmitField('Submit')
 
 
