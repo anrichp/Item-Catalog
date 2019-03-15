@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delete Error</title>
+</head>
+<body>
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Item Catalog - Delete Error{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg">
+	  <a class="navbar-brand" href="#">Item Catalog</a>
+	</nav>
+	{% if not session.profile %}
+	<a href="{{ url_for('.login') }}" class="btn btn-primary active" role="button" aria-pressed="true">Login</a>
+	{% else %}
+	<a href="{{ url_for('logout') }}" class="btn btn-primary active" role="button" aria-pressed="true">Logout</a>
+	{% endif %}	
+</nav>
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('.index') }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit: {{ item }} </li>
+  </ol>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="card text-center text-white bg-dark mb-3">
+		<div class="card-body">
+			<h1>You do not have the permission to delete this file</h1>
+		</div>
+	</div>	
+{% endblock %}
+
+
+</body>
+</html>
