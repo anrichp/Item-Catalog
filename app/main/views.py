@@ -77,14 +77,12 @@ def edit(category, item):
     editedItem = db.session.query(Item).filter_by(name=item).one()
     editor = db.session.query(Item.createdById).filter_by(name=item).one()
     # convert query result to a string and remove unwanted characters
-    description = str(description).replace("('", "").replace("',)", "")
     """
     receive form results and populate the Item object
     with updated information
     """
     user_id = session['profile']['email']
     if user_id != editor.createdById:
-        print(user_id)
         return render_template('editError.html')
     else:
         if request.method == 'POST':
