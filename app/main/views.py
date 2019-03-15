@@ -24,7 +24,7 @@ def login():
 @main.route('/catalog/<category>/items')
 def category(category):
     items = db.session.query(Item.name, Category.id).join(
-        Category).filter(Category.name == category)
+        Item).filter(Category.name == category)
     categories = db.session.query(Category).all()
     return render_template('categoryItems.html', items=items,
                            categories=categories, category=category)
@@ -112,3 +112,9 @@ def delete(category, item):
 def catalogJSON():
     catalog = db.session.query(Item).all()
     return jsonify(Item=[i.serialize for i in catalog])
+
+
+@main.route('/catalog/<category>/<item>/JSON')
+def itemJSON(category, item):
+    item = db.session.query(Item).filter_by(name=item).one()
+    return jsonify(Item=[item.serialize])
