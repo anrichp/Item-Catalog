@@ -75,22 +75,25 @@ def edit(category, item):
     description = db.session.query(Item.description).filter_by(name=item).one()
     categories = db.session.query(Category).all()
     editedItem = db.session.query(Item).filter_by(name=item).one()
-
+    editor = db.session.query(Item.createdById).filter_by(name=item).one()
     # convert query result to a string and remove unwanted characters
     description = str(description).replace("('", "").replace("',)", "")
     """
     receive form results and populate the Item object
     with updated information
     """
-    if session['profile']['email'] != editedItem.createdById:
-        render_template('editError.html')
-    elif request.method == 'POST':
-        editedItem.name = request.form['title']
-        editedItem.description = request.form['description']
-        editedItem.price = request.form['category']
-        db.session.add(editedItem)
-        db.session.commit()
-        return redirect(url_for('.index'))
+    user_id = session['profile']['email']
+    if user_id != editor.createdById:
+        print(user_id)
+        return render_template('editError.html')
+    else:
+        if request.method == 'POST':
+            editedItem.name = request.form['title']
+            editedItem.description = request.form['description']
+            editedItem.price = request.form['category']
+            db.session.add(editedItem)
+            db.session.commit()
+            return redirect(url_for('.index'))
     return render_template('editItem.html', item=item, description=description,
                            categories=categories, category=category)
 
@@ -99,11 +102,16 @@ def edit(category, item):
 def delete(category, item):
     form = DeleteItem()
     deleteItem = db.session.query(Item).filter_by(name=item).first()
-    # recieve delete instruction and ask for user input
-    if request.method == 'POST':
-        db.session.delete(deleteItem)
-        db.session.commit()
-        return redirect(url_for('.index'))
+    editor = db.session.query(Item.createdById).filter_by(name=item).one()
+
+    user_id = session['profile']['email']
+    if user_id != editor.createdById:
+        return render_template('deleteError.html')
+    else:
+        if request.method == 'POST':
+            db.session.delete(deleteItem)
+            db.session.commit()
+            return redirect(url_for('.index'))
     return render_template('delete.html', form=form, item=item)
 
 
