@@ -53,3 +53,17 @@ import populateDB
 ```
 python itemCatalog.py
 ```
+
+### JSON Endpoints
+
+## Endpoint for individual item
+
+```
+/catalog/<category>/<item>/JSON
+```
+
+## Endpoint for entire catalog
+
+```
+/catalog/JSON
+```
